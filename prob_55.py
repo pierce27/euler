@@ -6,15 +6,9 @@
 # print int_num + int_num_rev
 
 
-def sum_rev(num):
-	
+def sum_rev(num, count):
 	# reverse number
 	num_rev = reverse(num)
-
-	
-
-	print num
-	print num_rev
 
 	# convert to integers
 	int_num = int(num)
@@ -24,13 +18,49 @@ def sum_rev(num):
 
 	num_total = str(num_total_int)
 
-	# check if odd length
-	if len(num_total)%2 != 0:
-		# check plaindromoe
-		checkpal(num_total)
+	if count > 49:
+		return False
+
+	# check plaindromoe
+	if check_pal(num_total):
+		return count
 	else:
-		# recursively check num total
-		sum_rev(num_total)
+		count = count + 1
+
+	count = sum_rev(num_total, count)
+	return count
+
+
+
+# check if number is pallindrome
+def check_pal(total_str):
+	
+	print total_str
+	# check if odd
+		# get middle number
+	middle = len(total_str)/2
+	i = 0
+	first = ''
+	second = ''
+
+	# get first part of number
+	while i < middle:
+		first  += total_str[i]
+		i = i+1
+
+	# get second part of number
+	if len(total_str)%2 != 0:
+		i = middle + 1
+	else:
+		i = middle
+
+	while i < len(total_str):
+		second  += total_str[i]
+		i = i+1
+
+	if first == reverse(second):
+		return True
+
 
 # reverse number
 def reverse(num):
@@ -42,15 +72,37 @@ def reverse(num):
 		num_rev += num[i-1]
 		i = i - 1
 
-	return num_rev
+	return num_rev		
 
-# check if number is pallindrome
-def checkpal(total):
+
 
 
 
 
 def main():
-	sum_rev('349')
+	
+	n = 0
+	lyc_count = 0
+
+	while n < 10000:
+		print n
+		count = sum_rev(str(n), 1)
+
+		if count:
+			print count
+			print 'It took ' + str(count) + ' times'
+			print '\n'
+		else:
+			print 'No Pall'
+			print '\n'
+			lyc_count = lyc_count + 1
+		n = n + 1
+
+	print 'There are ' + str(lyc_count) + ' lycrhell numbers'
 
 main()
+
+
+
+
+
